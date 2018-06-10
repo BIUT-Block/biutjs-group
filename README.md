@@ -15,8 +15,6 @@
     * [.updateStatisticsDht(peerAccGroupIdDht)](#SECGroup+updateStatisticsDht) => <code>None</code>
     * [.setGroupIdDht()](#SECGroup+setGroupIdDht) => <code>None</code>
     * [.storeGroupIdTableToFile(file, content)](#SECGroup+storeGroupIdTableToFile) => <code>None</code>
-    * [._accAddrValidate(accAddr)](#SECGroup+_accAddrValidate) => <code>Boolean</code>
-    * [._groupIdValidate(groupId)](#SECGroup+_groupIdValidate) => <code>Boolean</code>
 
 <a name="new_SECGroup_new"></a>
 
@@ -112,26 +110,3 @@ This function appends the group ID statistics table into a JSON file
 | --- | --- | --- |
 | file | <code>String</code> | The json file path and name |
 | content | <code>Object</code> | Data to be written, default data is this.accGroupIdDht |
-
-<a name="SECGroup+_accAddrValidate"></a>
-
-### secGroup._accAddrValidate(accAddr) => <code>Boolean</code>
-Validate the account address is legal
-
-**Kind**: instance method of [<code>SECGroup</code>](#SECGroup)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| accAddr | <code>String</code> | Account address |
-
-<a name="SECGroup+_groupIdValidate"></a>
-
-### secGroup._groupIdValidate(groupId) => <code>Boolean</code>
-Validate the group ID value is legal
-
-**Kind**: instance method of [<code>SECGroup</code>](#SECGroup)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| groupId | <code>Number</code> | Group ID value |
-
