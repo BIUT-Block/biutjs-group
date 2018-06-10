@@ -52,10 +52,18 @@ class SECGroup {
 
   updateStaDhtFromPeer (peerAccGroupIdDht) {
     Object.keys(peerAccGroupIdDht).forEach(function (accAddr) {
+      if (!this._accAddrValidate(accAddr)) {
+        throw new Error('Invalid Group ID DHT From Peer Nodes (Account Address Invalid)')
+      }
+
       if (this.accGroupIdStaDht[accAddr] === undefined) {
         this.accGroupIdStaDht[accAddr] = peerAccGroupIdDht[accAddr]
       } else {
         Object.keys(peerAccGroupIdDht[accAddr]).forEach(function (groupId) {
+          if (!this._groupIdValidate(accAddr)) {
+            throw new Error('Invalid Group ID DHT From Peer Nodes (Group ID out of range)')
+          }
+
           if (this.accGroupIdStaDht[accAddr][groupId] === undefined) {
             this.accGroupIdStaDht[accAddr][groupId] = peerAccGroupIdDht[accAddr][groupId]
           } else {
