@@ -1,4 +1,5 @@
 const ranGen = require('./secjs-random-generate')
+const fs = require('fs')
 
 class SECGroup {
   constructor (config) {
@@ -85,6 +86,17 @@ class SECGroup {
 
       if (result !== 0) {
         this.accGroupIdDht[accAddr] = result
+      }
+    })
+  }
+
+  storeGroupIdTableToFile (file) {
+    let timeStamp = new Date().getTime()
+    let newLine = '\r\n'
+    let writeData = timeStamp.toString + newLine + JSON.stringify(this.accGroupIdDht) + newLine
+    fs.appendFile(file, writeData, function (err) {
+      if (err) {
+        throw err
       }
     })
   }
