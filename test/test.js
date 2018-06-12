@@ -2,60 +2,35 @@ const SecjsGroup = require('../src/index')
 const expect = require('chai').expect
 
 describe('SecjsGroup', () => {
-  let config = {'accAddrLength' : 32}
+  let config = {'accAddrLength': 4}
   const secGroup = new SecjsGroup(config)
 
   describe('generateGroupId() function test', () => {
     it('generated group ID is within the defined range', () => {
-      expect(() => {}).to.not.throw()
+      for(let i = 0; i < 100; i++) {
+        let result = secGroup.generateGroupId()
+        expect(result).to.be.within(1, 10)
+      }
     })
   })
 
   describe('generateGroupIds(peerAddrList) function test', () => {
-    it('', () => {
-      expect(() => {}).to.not.throw()
-    })
-  })
+    it('valid peerAddrList input', () => {
+      let peerAddrList = ['aaaa', 'bbbb', 'cccc']
+      secGroup.generateGroupIds(peerAddrList)
 
-  describe('getGroupId(accAddr) function test', () => {
-    it('', () => {
-      expect(() => {}).to.not.throw()
+      expect(secGroup.generatedPeerGroupId['aaaa']).to.be.within(1, 10)
+      expect(secGroup.generatedPeerGroupId['bbbb']).to.be.within(1, 10)
+      expect(secGroup.generatedPeerGroupId['cccc']).to.be.within(1, 10)
     })
-  })
 
-  describe('setGroupId(accAddr, groupId) function test', () => {
-    it('', () => {
-      expect(() => {}).to.not.throw()
+    it('test different peerAddrList input type', () => {
+      let peerAddrList = "1234"
+      expect().to.not.throw()
     })
-  })
 
-  describe('updateStatisticsDht(peerAccGroupIdDht) function test', () => {
-    it('', () => {
-      expect(() => {}).to.not.throw()
-    })
-  })
-
-  describe('setGroupIdDht() function test', () => {
-    it('', () => {
-      expect(() => {}).to.not.throw()
-    })
-  })
-
-  describe('storeGroupIdTableToFile(file, content) function test', () => {
-    it('', () => {
-      expect(() => {}).to.not.throw()
-    })
-  })
-
-  describe('_accAddrValidate(accAddr) function test', () => {
-    it('', () => {
-      expect(() => {}).to.not.throw()
-    })
-  })
-
-  describe('_groupIdValidate(groupId) function test', () => {
-    it('', () => {
-      expect(() => {}).to.not.throw()
+    it('invalid peerAddrList address value', () => {
+      expect().to.not.throw()
     })
   })
 })

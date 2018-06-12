@@ -1,7 +1,12 @@
 <a name="SECGroup"></a>
 
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard) 
+
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)]
+
 ## SECGroup
-**Kind**: global class  
+
+This package is for SEC blockchain user account group related operations
 
 * [SECGroup](#SECGroup)
     * [new SECGroup(config)](#new_SECGroup_new)

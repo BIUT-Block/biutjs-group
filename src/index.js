@@ -43,10 +43,20 @@ class SECGroup {
 
   /**
    * This function generates group ids for all the peer nodes
-   * @param {Array} - Peer nodes' address list
+   * @param {Array} peerAddrList - Peer nodes' address list
    * @return {None}
    */
   generateGroupIds (peerAddrList) {
+    if (!Array.isArray(peerAddrList)) {
+      if (!this._accAddrValidate) {
+        throw new Error('Invalid peer node address input')
+      }
+    } else {
+      if (!this._duplicateAddrCheck(peerAddrList)) {
+        throw new Error('Input contains duplicate addresses')
+      }
+    }
+
     peerAddrList.forEach(function (peerAddr) {
       if (!this._accAddrValidate(peerAddr)) {
         throw new Error('Invalid peer node address')
@@ -180,6 +190,36 @@ class SECGroup {
   _groupIdValidate (groupId) {
     if ((groupId > this.groupIdRange['max']) || (groupId < this.groupIdRange['min'])) {
       return false
+    }
+
+    return true
+  }
+
+  /**
+   * Check whether the input array or json data contains duplicate addresses
+   * @param  {Array, Object} addrList - input data which will be checked
+   * @return {Boolean}
+   */
+  _duplicateAddrCheck (addrList) {
+    if (Array.isArray(addrList)) {
+      let sortedArray = addrList.sort()
+      for (let i = 0; i < addrList.length; i++) {
+        if (sortedArray[i] === sortedArray[i + 1]) {
+          return false
+        }
+      }
+    } else {
+      try {
+        JSON.parse(addrList)
+      } catch (e) {
+        throw new Error('Invalid input type, should be array type or json format')
+      }
+      let sortedArray = Object.keys(addrList).sort()
+      for (let i = 0; i < sortedArray.length; i++) {
+        if (sortedArray[i] === sortedArray[i + 1]) {
+          return false
+        }
+      }
     }
 
     return true
