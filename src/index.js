@@ -48,9 +48,7 @@ class SECGroup {
    */
   generateGroupIds (peerAddrList) {
     if (!Array.isArray(peerAddrList)) {
-      if (!this._accAddrValidate) {
-        throw new Error('Invalid peer node address input')
-      }
+      throw new Error('Invalid peer node address input type')
     } else {
       if (!this._duplicateAddrCheck(peerAddrList)) {
         throw new Error('Input contains duplicate addresses')

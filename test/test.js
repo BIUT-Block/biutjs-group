@@ -24,13 +24,22 @@ describe('SecjsGroup', () => {
       expect(secGroup.generatedPeerGroupId['cccc']).to.be.within(1, 10)
     })
 
-    it('test different peerAddrList input type', () => {
+    it('invalid peerAddrList input type', () => {
       let peerAddrList = "1234"
-      expect().to.not.throw()
+      expect(secGroup.generateGroupIds(peerAddrList)).to.throw('Invalid peer node address input type')
+
+      peerAddrList = 1234
+      expect(secGroup.generateGroupIds(peerAddrList)).to.throw('Invalid peer node address input type')
+    })
+
+    it('input contains duplicate addresses', () => {
+      let peerAddrList = ['aaaa', 'aaaa']
+      expect(secGroup.generateGroupIds(peerAddrList)).to.throw('Input contains duplicate addresses')
     })
 
     it('invalid peerAddrList address value', () => {
-      expect().to.not.throw()
+      let peerAddrList = ['aaa', 'bbbb', 'cccc']
+      expect(secGroup.generateGroupIds(peerAddrList)).to.throw('Invalid peer node address')
     })
   })
 })
