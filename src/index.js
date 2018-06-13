@@ -106,24 +106,26 @@ class SECGroup {
    * @return {None}
    */
   updateStatisticsDht (peerAccGroupIdDht) {
+    let self = this
+
     Object.keys(peerAccGroupIdDht).forEach(function (accAddr) {
       let groupId = peerAccGroupIdDht[accAddr]
-      if (!this._accAddrValidate(accAddr)) {
+      if (!self._accAddrValidate(accAddr)) {
         throw new Error('Invalid Group ID DHT From Peer Nodes (Account Address Invalid)')
       }
 
-      if (!this._groupIdValidate(groupId)) {
+      if (!self._groupIdValidate(groupId)) {
         throw new RangeError('Invalid Group ID DHT From Peer Nodes (Group ID out of range)')
       }
 
-      if (this.accGroupIdStatisticsDht[accAddr] === undefined) {
-        this.accGroupIdStatisticsDht[accAddr] = {}
+      if (self.accGroupIdStatisticsDht[accAddr] === undefined) {
+        self.accGroupIdStatisticsDht[accAddr] = {}
       }
 
-      if (this.accGroupIdStatisticsDht[accAddr][groupId] === undefined) {
-        this.accGroupIdStatisticsDht[accAddr][groupId] = 1
+      if (self.accGroupIdStatisticsDht[accAddr][groupId.toString()] === undefined) {
+        self.accGroupIdStatisticsDht[accAddr][groupId.toString()] = 1
       } else {
-        this.accGroupIdStatisticsDht[accAddr][groupId] += 1
+        self.accGroupIdStatisticsDht[accAddr][groupId.toString()] += 1
       }
     })
   }
@@ -133,16 +135,25 @@ class SECGroup {
    * @return {None}
    */
   setGroupIdDht () {
-    Object.keys(this.accGroupIdStatisticsDht).forEach(function (accAddr) {
-      let result = Object.keys(this.accGroupIdStatisticsDht[accAddr]).forEach(function (groupId) {
-        let maxGroupId = 0
-        if (this.accGroupIdStatisticsDht[accAddr][groupId] > maxGroupId) {
-          maxGroupId = this.accGroupIdStatisticsDht[accAddr][groupId]
-        }
-      })
+    let self = this
 
-      if (result !== 0) {
-        this.accGroupIdDht[accAddr] = result
+    if (!Object.keys(self.accGroupIdStatisticsDht).length) {
+      self.accGroupIdDht = {}
+    }
+
+    Object.keys(self.accGroupIdStatisticsDht).forEach(function (accAddr) {
+      let maxGroupId = 0
+      let maxCount = 0
+
+      for (let groupId of Object.keys(self.accGroupIdStatisticsDht[accAddr])) {
+        if (self.accGroupIdStatisticsDht[accAddr][groupId] > maxCount) {
+          maxCount = self.accGroupIdStatisticsDht[accAddr][groupId]
+          maxGroupId = parseInt(groupId)
+        }
+      }
+
+      if (maxGroupId !== 0) {
+        self.accGroupIdDht[accAddr] = maxGroupId
       }
     })
   }
@@ -156,7 +167,7 @@ class SECGroup {
   storeGroupIdTableToFile (file, content = this.accGroupIdDht) {
     let timeStamp = new Date().getTime()
     let newLine = '\r\n'
-    let writeData = timeStamp.toString + newLine + JSON.stringify(content) + newLine
+    let writeData = 'timeStamp: ' + timeStamp + ',  Group ID Table: ' + JSON.stringify(content) + newLine
     fs.appendFile(file, writeData, function (err) {
       if (err) {
         throw err

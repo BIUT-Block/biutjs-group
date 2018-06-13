@@ -81,4 +81,59 @@ describe('SecjsGroup', () => {
       expect(() => { secGroup.setGroupId('aaaa', [1]) }).to.throw('Invalid group Id, out of range')
     })
   })
+
+  describe('updateStatisticsDht (peerAccGroupIdDht) function test', () => {
+    let secGroup = new SecjsGroup(config)
+    secGroup.accGroupIdStatisticsDht = {
+      'aaaa': {'1': 2, '2': 3, '3': 1, '9': 5},
+      'bbbb': {'1': 2, '2': 3, '6': 1, '8': 3}
+    }
+
+    it('functionality correctness test', () => {
+      let peerAccGroupIdDht = {'aaaa': 1, 'cccc': 3}
+      secGroup.updateStatisticsDht(peerAccGroupIdDht)
+
+      expect(secGroup.accGroupIdStatisticsDht['aaaa']['1']).to.equal(3)
+      expect(secGroup.accGroupIdStatisticsDht['cccc']['3']).to.equal(1)
+    })
+
+    it('invalid input test', () => {
+      let peerAccGroupIdDht = {'123': 1}
+      expect(() => { secGroup.updateStatisticsDht(peerAccGroupIdDht) }).to.throw('Invalid Group ID DHT From Peer Nodes (Account Address Invalid)')
+
+      peerAccGroupIdDht = {'aaaa': 11}
+      expect(() => { secGroup.updateStatisticsDht(peerAccGroupIdDht) }).to.throw('Invalid Group ID DHT From Peer Nodes (Group ID out of range)')
+    })
+  })
+
+  describe('setGroupIdDht() function test', () => {
+    let secGroup = new SecjsGroup(config)
+
+    it('functionality correctness test', () => {
+      secGroup.accGroupIdStatisticsDht = {
+        'aaaa': {'1': 2, '2': 3, '3': 1, '9': 5},
+        'bbbb': {'1': 2, '2': 3, '6': 1, '8': 3}
+      }
+      secGroup.setGroupIdDht()
+      expect(secGroup.accGroupIdDht).to.deep.equal({'aaaa': 9, 'bbbb': 2})
+    })
+
+    it('empty table test', () => {
+      secGroup.accGroupIdStatisticsDht = {}
+      secGroup.setGroupIdDht()
+      expect(secGroup.accGroupIdDht).to.deep.equal({})
+    })
+  })
+
+  describe('storeGroupIdTableToFile (file, content) function test', () => {
+    let secGroup = new SecjsGroup(config)
+    secGroup.accGroupIdStatisticsDht = {
+      'aaaa': {'1': 2, '2': 3, '3': 1, '9': 5},
+      'bbbb': {'1': 2, '2': 3, '6': 1, '8': 3}
+    }
+    secGroup.setGroupIdDht()
+
+    let file = 'test.json'
+    secGroup.storeGroupIdTableToFile(file)
+  })
 })
