@@ -47,8 +47,9 @@ class SECGroup {
    * @return {None}
    */
   generateGroupIds (peerAddrList) {
+    let self = this
     if (!Array.isArray(peerAddrList)) {
-      throw new Error('Invalid peer node address input type')
+      throw new TypeError('Invalid peer node address input type')
     } else {
       if (!this._duplicateAddrCheck(peerAddrList)) {
         throw new Error('Input contains duplicate addresses')
@@ -56,11 +57,11 @@ class SECGroup {
     }
 
     peerAddrList.forEach(function (peerAddr) {
-      if (!this._accAddrValidate(peerAddr)) {
+      if (!self._accAddrValidate(peerAddr)) {
         throw new Error('Invalid peer node address')
       }
 
-      this.generatedPeerGroupId[peerAddr] = this.generateGroupId()
+      self.generatedPeerGroupId[peerAddr] = self.generateGroupId()
     })
   }
 
@@ -93,7 +94,7 @@ class SECGroup {
     }
 
     if (!this._groupIdValidate(groupId)) {
-      throw new Error('Invalid group Id, out of range')
+      throw new RangeError('Invalid group Id, out of range')
     }
 
     this.accGroupIdDht[accAddr] = groupId
@@ -112,7 +113,7 @@ class SECGroup {
       }
 
       if (!this._groupIdValidate(groupId)) {
-        throw new Error('Invalid Group ID DHT From Peer Nodes (Group ID out of range)')
+        throw new RangeError('Invalid Group ID DHT From Peer Nodes (Group ID out of range)')
       }
 
       if (this.accGroupIdStatisticsDht[accAddr] === undefined) {
@@ -186,6 +187,10 @@ class SECGroup {
    * @return {Boolean}
    */
   _groupIdValidate (groupId) {
+    if (typeof groupId !== 'number') {
+      return false
+    }
+
     if ((groupId > this.groupIdRange['max']) || (groupId < this.groupIdRange['min'])) {
       return false
     }
@@ -210,7 +215,7 @@ class SECGroup {
       try {
         JSON.parse(addrList)
       } catch (e) {
-        throw new Error('Invalid input type, should be array type or json format')
+        throw new TypeError('Invalid input type, should be array type or json format')
       }
       let sortedArray = Object.keys(addrList).sort()
       for (let i = 0; i < sortedArray.length; i++) {
