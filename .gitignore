@@ -1,2 +1,3 @@
 src/out/*
+src/*.md
 node_modules

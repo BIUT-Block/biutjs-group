@@ -80,17 +80,18 @@ This function updates the table which stores the frequency of each group ID gene
 <a name="SECGroup+setGroupIdDht"></a>
 
 ### secGroup.setGroupIdDht() => <code>None</code>
-This function finally determined the located group IDs for each nodes (unchangable during this working period).
+This function finally determined the located group ID for each node (unchangable during this working period).
+If there are two group IDs have the same value, then pick up the smaller one as its group ID
 
 **Kind**: instance method of [<code>SECGroup</code>](#SECGroup)  
 <a name="SECGroup+storeGroupIdTableToFile"></a>
 
 ### secGroup.storeGroupIdTableToFile(file, content) => <code>None</code>
-This function appends the group ID statistics table into a JSON file
+This function writes(appends) the group ID statistics table into a JSON file
 
 **Kind**: instance method of [<code>SECGroup</code>](#SECGroup)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | file | <code>String</code> | The json file path and name |
-| content | <code>Object</code> | Data to be written, default data is this.accGroupIdDht |
+| content | <code>Object</code> | Data to be written, default data is 'this.accGroupIdDht' |

@@ -134,6 +134,7 @@ class SECGroup {
 
   /**
    * This function finally determined the located group ID for each node (unchangable during this working period).
+   * If there are two group IDs have the same value, then pick up the smaller one as its group ID
    * @return {None}
    */
   setGroupIdDht () {
@@ -213,7 +214,7 @@ class SECGroup {
 
   /**
    * Check whether the input data (array or json format) contains duplicate addresses
-   * @param  {Array, Object} addrList - input data which will be checked
+   * @param  {Array | Object} addrList - input data which will be checked
    * @return {Boolean}
    */
   _duplicateAddrCheck (addrList) {
