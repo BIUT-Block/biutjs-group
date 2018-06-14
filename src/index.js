@@ -12,20 +12,22 @@ class SECGroup {
       'max': 10
     }
 
-    // Current node generated group id for its peers
+    // Current node generates group ids for its peer nodes
     this.generatedPeerGroupId = {
       // 'account address': group ID
     }
 
-    // Distributed table that records each node's group id
+    // Distributed table that records all the nodes' group ids
     this.accGroupIdDht = {
       // 'account address': group ID
     }
 
-    // Used to collect and add up each group ID generated times from other peer nodes
+    // Used to collect and add up each group ID generated frequency from each peer node
     this.accGroupIdStatisticsDht = {
       // 'account address': {
-      //    'group ID': add up value
+      //    'group ID': add up value,
+      //    'group ID': add up value,
+      //    ...
       // }, ...
     }
   }
@@ -131,7 +133,7 @@ class SECGroup {
   }
 
   /**
-   * This function finally determined the located group IDs for each nodes (unchangable during this working period).
+   * This function finally determined the located group ID for each node (unchangable during this working period).
    * @return {None}
    */
   setGroupIdDht () {
@@ -159,9 +161,9 @@ class SECGroup {
   }
 
   /**
-   * This function appends the group ID statistics table into a JSON file
+   * This function writes(appends) the group ID statistics table into a JSON file
    * @param  {String} file - The json file path and name
-   * @param  {Object} content - Data to be written, default data is this.accGroupIdDht
+   * @param  {Object} content - Data to be written, default data is 'this.accGroupIdDht'
    * @return {None}
    */
   storeGroupIdTableToFile (file, content = this.accGroupIdDht) {
@@ -210,7 +212,7 @@ class SECGroup {
   }
 
   /**
-   * Check whether the input array or json data contains duplicate addresses
+   * Check whether the input data (array or json format) contains duplicate addresses
    * @param  {Array, Object} addrList - input data which will be checked
    * @return {Boolean}
    */
