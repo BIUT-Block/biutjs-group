@@ -27,7 +27,7 @@ describe('SecjsGroup', () => {
 
     it('invalid peerAddrList input type', () => {
       let secGroup = new SecjsGroup(config)
-      let peerAddrList = "1234"
+      let peerAddrList = '1234'
       expect(() => { secGroup.generateGroupIds(peerAddrList) }).to.throw('Invalid peer node address input type')
 
       peerAddrList = 1234
