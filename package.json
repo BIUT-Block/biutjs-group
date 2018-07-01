@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/MongoX-SEC/secjs-group.git"
+    "url": "git+https://github.com/SEC-Block/secjs-group.git"
   },
   "keywords": [
     "sec",
@@ -21,9 +21,9 @@
   "author": "Weihan",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/MongoX-SEC/secjs-group/issues"
+    "url": "https://github.com/SEC-Block/secjs-group/issues"
   },
-  "homepage": "https://gitlab.com/MongoX-SEC/secjs-group#README",
+  "homepage": "https://github.com/SEC-Block/secjs-group#README",
   "dependencies": {
     "chai": "^4.1.2"
   }
