@@ -1,6 +1,6 @@
 {
   "name": "@sec-block/secjs-group",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "sec blockchain group ID class",
   "main": "src/index.js",
   "directories": {
