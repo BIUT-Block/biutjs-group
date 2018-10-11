@@ -10,6 +10,7 @@ This package is for SEC blockchain user account group related operations
 
 * [SECGroup](#SECGroup)
     * [new SECGroup(config)](#new_SECGroup_new)
+    * [.reset(config)](#SECGroup+reset) => <code>None</code>
     * [.generateGroupId()](#SECGroup+generateGroupId) => <code>Number</code>
     * [.generateGroupIds(peerAddrList)](#SECGroup+generateGroupIds) => <code>None</code>
     * [.getGroupId(accAddr)](#SECGroup+getGroupId) => <code>Number</code>
@@ -26,12 +27,24 @@ This package is for SEC blockchain user account group related operations
 | --- | --- | --- |
 | config | <code>Object</code> | JSON format configurations for initialization |
 
+<a name="SECGroup+reset"></a>
+
+### secGroup.reset(config) => <code>None</code>
+Reset this class
+
+**Kind**: instance method of [<code>SECGroup</code>](#SECGroup)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| config | <code>Object</code> | JSON format configuration |
+
 <a name="SECGroup+generateGroupId"></a>
 
 ### secGroup.generateGroupId() => <code>Number</code>
 Generate a group id
 
-**Kind**: instance method of [<code>SECGroup</code>](#SECGroup)  
+**Kind**: instance method of [<code>SECGroup</code>](#SECGroup)
+
 <a name="SECGroup+generateGroupIds"></a>
 
 ### secGroup.generateGroupIds(peerAddrList) => <code>None</code>

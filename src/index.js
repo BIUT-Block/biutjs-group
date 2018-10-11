@@ -8,8 +8,8 @@ class SECGroup {
   constructor (config) {
     this.accAddrLength = config.accAddrLength // 128
     this.groupIdRange = {
-      'min': 1,
-      'max': 10
+      'min': config.minGroupId,
+      'max': config.maxGroupId
     }
 
     // Current node generates group ids for its peer nodes
@@ -30,6 +30,33 @@ class SECGroup {
       //    ...
       // }, ...
     }
+  }
+
+  /**
+   * Reset this class
+   * @param  {Object} config - JSON format configuration
+   */
+  reset (config = {}) {
+    if (config.accAddrLength !== undefined) {
+      this.accAddrLength = config.accAddrLength
+    }
+    if (config.minGroupId !== undefined) {
+      this.minGroupId = config.minGroupId
+      this.groupIdRange = {
+        'min': config.minGroupId,
+        'max': config.maxGroupId
+      }
+    }
+    if (config.maxGroupId !== undefined) {
+      this.maxGroupId = config.maxGroupId
+      this.groupIdRange = {
+        'min': config.minGroupId,
+        'max': config.maxGroupId
+      }
+    }
+    this.generatedPeerGroupId = {}
+    this.accGroupIdDht = {}
+    this.accGroupIdStatisticsDht = {}
   }
 
   /**
